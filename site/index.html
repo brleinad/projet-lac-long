@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projet Lac Long</title>
+  <link rel="stylesheet" href="css/pico.min.css">
+</head>
+<body>
+
+
+<main class="container">
+  <section>
+    <h1>Projet Lac Long</h1>
+    <h2>141 Routes</h2>
+    <div class="grid" id="scoreboard">
+    </div>
+  </section>
+  <section>
+    <h2>Rules</h2>
+    <ul>
+      <li>
+        First climber to send all climbs wins
+      </li>
+      <li>
+        You have to tick sends on Mountain project
+      </li>
+      <li>
+        Routes and boulders
+      </li>
+      <li>
+        On lead placing gear
+      </li>
+      <li>
+        Sport draws can be preplaced
+      </li>
+      <li>
+        You can clip gear that’s stuck (use common sense, don't ask your buddy to preplace "stuck" gear)
+      </li>
+      <li>
+        Only established climbs with a FA
+      </li>
+      <li>
+        If one climber does a FA the other has to do it too
+      </li>
+      <li>
+        Challenge ends when the first climber sends all established climbs
+      </li>
+    </ul>
+
+    <h3>Looser has to climb:</h3>
+    <ul>
+      <li>
+        Bikini wearing a bikini
+      </li>
+      <li>
+        Catwoman wearing a sexy cat costume
+      </li>
+      <li>
+        Batman wearing batman costume
+      </li>
+      <li>
+        Ballet classic wearing a tutu
+      </li>
+      <li>
+        Nacho libre wearing a lichador costume
+      </li>
+      <li>
+        Pirates d’air wearing a pirate costume
+      </li>
+      <li>
+        Grosse face wearing fat costume with additional weight
+      </li>
+
+    </ul>
+
+  </section>
+</main>
+
+</body>
+<script>
+  async function getSends() {
+    const contestants = [
+      {
+        'name': 'Daniel',
+        'profile': '200222284/daniel-rodas-bautista'
+      },
+      {
+        'name': 'Francis',
+        'profile': '112474537/francis-lessard',
+      },
+      {
+        'name': 'Louit',
+        'profile': '200039487/louis-thomas-schreiber',
+      },
+    ]
+
+    const results = []
+    for (const contestant of contestants) {
+      const url = `/sends/${contestant.profile}`
+      console.log(url)
+      let response = await fetch(url);
+      response = await response.json();
+
+      results.push({
+        name: contestant.name,
+        sends: response.sends,
+      })
+    }
+    return results;
+  }
+
+  function updatePage(results) {
+    const scoreboard = document.querySelector('#scoreboard');
+    for (const contestant of results) {
+      const score = document.createElement('div');
+      // TODO: get the total number of climbs from api too
+      score.textContent = `${contestant.name} - ${contestant.sends}`;
+      scoreboard.appendChild(score);
+    }
+  }
+
+  async function main() {
+    const results = await getSends();
+    console.log(results);
+    updatePage(results);
+  }
+  main();
+</script>
+</html>
