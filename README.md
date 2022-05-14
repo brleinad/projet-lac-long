@@ -20,3 +20,11 @@ Install [fly](https://fly.io/docs/getting-started/installing-flyctl/)
 fly deploy
 ```
 
+
+## ToDos
+
+- Account for multi pitches
+- Get total routes in lac long from mountain project
+- Cache scoreboard?
+- Add some pics?
+- Translate to french 
