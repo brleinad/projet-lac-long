@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Projet Lac Long</title>
   <link rel="stylesheet" href="css/pico.min.css">
+  <link rel="stylesheet" href="css/spinner.css">
 </head>
 <body>
 
@@ -13,7 +14,8 @@
   <section>
     <h1>Projet Lac Long</h1>
     <h2>141 Routes</h2>
-    <div class="grid" id="scoreboard">
+    <h3>Scoreboard</h3>
+    <div class="grid"  aria-busy="true" id="scoreboard" style="position: relative;">
     </div>
   </section>
   <section>
@@ -112,6 +114,7 @@
 
   function updatePage(results) {
     const scoreboard = document.querySelector('#scoreboard');
+    scoreboard.setAttribute('aria-busy', false); // remove spinner
     for (const contestant of results) {
       const score = document.createElement('div');
       // TODO: get the total number of climbs from api too
